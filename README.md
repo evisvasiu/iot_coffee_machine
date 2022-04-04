@@ -33,7 +33,7 @@ List of the feedbacks are as follows:
 -	Each button background color. Each button background turns red when the command is received successfully by the machine. 
 
  
-Fig. 1. Cloud interface of the machine
+![Fig. 1. Cloud interface of the machine](/ui-media/interface.jpeg)
 
 -	Text display. There are several text feedback which provide main informations about the machine status. Text messages feedbacks are: “Ready”, “Pouring coffee”, “Pouring milk” and “Enjoy”.
 -	Milk and coffee quantities left on the tank. 
