@@ -24,16 +24,19 @@ This Node-RED project can be loaded locally or in any cloud instance. In my [exa
 
 ### Interface
 
-By using the provided inbuilt MQTT topics, I have built an interface (fig.1) with a total of nine inputs and five commands. 
+By using the provided inbuilt MQTT topics, I have built an interface with a total of nine inputs and five commands. 
+
+![Fig. 1. Cloud interface of the machine](/ui-media/interface.jpg)
+
 List of the commands are as follows: 
--	Two manual “Coffee” and “Milk” buttons. Pouring coffee or milk happens if any of the buttons is pressed once and it stops pouring when the relevant button is pressed again. 
--	Three recipes of coffee, double-coffee and macchiato.  Recipes consist on the pre-programmed quantities of coffee and milk. 
+-	Two buttons for manual making of “Coffee” and “Milk”. Pouring coffee or milk happens if any of the buttons is pressed once and it stops pouring when the relevant button is pressed again. 
+-	Three recipes buttons for coffee, double-coffee and macchiato.  Recipes consist on the pre-programmed time-pourng of coffee and milk. 
+
+
 List of the feedbacks are as follows: 
+
 -	LED lamp. It turns green when the connection is successfully and it turns red when there is no connection
 -	Each button background color. Each button background turns red when the command is received successfully by the machine. 
-
- 
-![Fig. 1. Cloud interface of the machine](/ui-media/interface.jpeg)
 
 -	Text display. There are several text feedback which provide main informations about the machine status. Text messages feedbacks are: “Ready”, “Pouring coffee”, “Pouring milk” and “Enjoy”.
 -	Milk and coffee quantities left on the tank. 
