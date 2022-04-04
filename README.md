@@ -14,7 +14,7 @@ Nodes used in this project and required to be installed are:
 ## Installation
 
 1. Import flows.json to Node-RED.
-2. Upload the logo inside the node named as "simumatik logo", at the end of the flows. 
+2. Upload the logo inside the node named as "simumatik logo", located at the end of the flows. 
 3. (Optional) Interface apparence is designed for dark style theme. Set the dark style in dashboard/theme menu. 
 
 ## Introduction to software/hardware used
