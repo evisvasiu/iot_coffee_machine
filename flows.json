@@ -1,0 +1,1869 @@
+[
+    {
+        "id": "3be44ceda570ace4",
+        "type": "tab",
+        "label": "IoT Coffee Machine",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "da8afbbc8093e260",
+        "type": "mqtt in",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "topic": "coffee_mac_iot_lab_2022/level_milk",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "4b0c4988f0f383c0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 1600,
+        "wires": [
+            [
+                "3b66cc715a2944c3"
+            ]
+        ]
+    },
+    {
+        "id": "42f70f2e9392673b",
+        "type": "mqtt out",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "topic": "coffee_mac_iot_lab_2022/add_milk",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "4b0c4988f0f383c0",
+        "x": 1400,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "1b8a6ce00435f25d",
+        "type": "ui_button",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "group": "b9f388ad129933d3",
+        "order": 5,
+        "width": 2,
+        "height": 1,
+        "passthru": false,
+        "label": "Milk",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "{{background}}",
+        "className": "",
+        "icon": "",
+        "payload": "-1",
+        "payloadType": "num",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 250,
+        "y": 160,
+        "wires": [
+            [
+                "f43a1d20e89a2028"
+            ]
+        ]
+    },
+    {
+        "id": "fc028e577ad7fbd7",
+        "type": "mqtt in",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "topic": "coffee_mac_iot_lab_2022/level_coffee",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "4b0c4988f0f383c0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 1500,
+        "wires": [
+            [
+                "812d77d973f8e1cc"
+            ]
+        ]
+    },
+    {
+        "id": "cb5b5e1314c79103",
+        "type": "mqtt out",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "topic": "coffee_mac_iot_lab_2022/display_text",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "4b0c4988f0f383c0",
+        "x": 530,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "754ceaec0294f615",
+        "type": "mqtt in",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "topic": "coffee_mac_iot_lab_2022/button_right",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "4b0c4988f0f383c0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 1400,
+        "wires": [
+            [
+                "7a96e061c2f21c69",
+                "e96006c0ce755501"
+            ]
+        ]
+    },
+    {
+        "id": "f43a1d20e89a2028",
+        "type": "function",
+        "z": "3be44ceda570ace4",
+        "name": "toggle function & button colour",
+        "func": "//getting the local variable which has only\n// two values, -1 and 1. \nvar toggle = context.get('toggle')||-1;  \n\n//msg.payload has always the input value = -1. Thus the multiplication will output only two possible values. -1 or 1.\nmsg.payload = msg.payload * toggle;     \ncontext.set('toggle',msg.payload);      //updating the value to the toggle variable\n\n\n//creating the toggle function. The output will have have tow possible values. \"green\" or \"\".\nif (msg.payload === 1)                  \n{\n    msg.background = \"green\";\n}\nelse\n{\n    msg.background = \"\";\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 160,
+        "wires": [
+            [
+                "776ce2b9fd2d9ecd",
+                "1b8a6ce00435f25d",
+                "181dd11966206079"
+            ]
+        ]
+    },
+    {
+        "id": "776ce2b9fd2d9ecd",
+        "type": "change",
+        "z": "3be44ceda570ace4",
+        "name": "Milk command",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "1",
+                "fromt": "num",
+                "to": "ON",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "-1",
+                "fromt": "num",
+                "to": "OFF",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 280,
+        "wires": [
+            [
+                "42f70f2e9392673b",
+                "6888f7c56901ceb3"
+            ]
+        ]
+    },
+    {
+        "id": "b8c70d861bbe8401",
+        "type": "mqtt out",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "topic": "coffee_mac_iot_lab_2022/add_coffee",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "4b0c4988f0f383c0",
+        "x": 1410,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "80a17ed1c6a4415b",
+        "type": "ui_button",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "group": "b9f388ad129933d3",
+        "order": 4,
+        "width": 2,
+        "height": 1,
+        "passthru": false,
+        "label": "Coffee",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "{{background}}",
+        "className": "",
+        "icon": "",
+        "payload": "-1",
+        "payloadType": "num",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 250,
+        "y": 400,
+        "wires": [
+            [
+                "5f0a3f3cb592b308"
+            ]
+        ]
+    },
+    {
+        "id": "2ab357b18f125b27",
+        "type": "change",
+        "z": "3be44ceda570ace4",
+        "name": "Coffee command",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "1",
+                "fromt": "num",
+                "to": "ON",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "-1",
+                "fromt": "num",
+                "to": "OFF",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1130,
+        "y": 420,
+        "wires": [
+            [
+                "b8c70d861bbe8401",
+                "fa35b76d5ad593b7"
+            ]
+        ]
+    },
+    {
+        "id": "6888f7c56901ceb3",
+        "type": "function",
+        "z": "3be44ceda570ace4",
+        "name": "\"Pouring milk\" text",
+        "func": "if (msg.payload == \"ON\")\n{\n    msg.payload = \"Pouring milk\";\n}\nelse\n{\n    msg.payload = \" \";\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1350,
+        "y": 300,
+        "wires": [
+            [
+                "c72b7860597191b9",
+                "b01765858b933609"
+            ]
+        ]
+    },
+    {
+        "id": "fa35b76d5ad593b7",
+        "type": "function",
+        "z": "3be44ceda570ace4",
+        "name": "\"Poring coffee\" text",
+        "func": "if (msg.payload == \"ON\")\n{\n    msg.payload = \"Pouring coffee\";\n}\nelse\n{\n    msg.payload = \" \";\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1350,
+        "y": 460,
+        "wires": [
+            [
+                "73e82a625073481c",
+                "c1c13c31e70df9af"
+            ]
+        ]
+    },
+    {
+        "id": "077875d48ec8fd81",
+        "type": "mqtt in",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "topic": "coffee_mac_iot_lab_2022/button_left",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "4b0c4988f0f383c0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 1280,
+        "wires": [
+            [
+                "9fd17031e219142c"
+            ]
+        ]
+    },
+    {
+        "id": "49d9d24659e3393e",
+        "type": "comment",
+        "z": "3be44ceda570ace4",
+        "name": "Left button",
+        "info": "",
+        "x": 200,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "de646f738f6abc63",
+        "type": "mqtt in",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "topic": "coffee_mac_iot_lab_2022/button_center",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "4b0c4988f0f383c0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 1120,
+        "wires": [
+            [
+                "1dc4636bb8c64ae7"
+            ]
+        ]
+    },
+    {
+        "id": "1dc4636bb8c64ae7",
+        "type": "switch",
+        "z": "3be44ceda570ace4",
+        "name": "OFF/ON",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "OFF",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "ON",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 540,
+        "y": 1120,
+        "wires": [
+            [],
+            [
+                "4449a1a9dea3a6ca"
+            ]
+        ]
+    },
+    {
+        "id": "f7a663fb224cdbb8",
+        "type": "comment",
+        "z": "3be44ceda570ace4",
+        "name": "Center button",
+        "info": "",
+        "x": 170,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "29e849333dd2b710",
+        "type": "comment",
+        "z": "3be44ceda570ace4",
+        "name": "Right button",
+        "info": "",
+        "x": 210,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "d6190d877751f677",
+        "type": "ui_button",
+        "z": "3be44ceda570ace4",
+        "name": "espresso",
+        "group": "b9f388ad129933d3",
+        "order": 7,
+        "width": 1,
+        "height": 1,
+        "passthru": false,
+        "label": "",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "{{background}}",
+        "className": "",
+        "icon": "fa-coffee",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 260,
+        "y": 520,
+        "wires": [
+            [
+                "f027da30cea579b4"
+            ]
+        ]
+    },
+    {
+        "id": "f027da30cea579b4",
+        "type": "trigger",
+        "z": "3be44ceda570ace4",
+        "name": "coffee quantity",
+        "op1": "1",
+        "op2": "-1",
+        "op1type": "num",
+        "op2type": "num",
+        "duration": "1500",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 460,
+        "y": 520,
+        "wires": [
+            [
+                "2ab357b18f125b27",
+                "f36880eae99bf691",
+                "1e4d6a76d76d5073"
+            ]
+        ]
+    },
+    {
+        "id": "48dbfa1893ce44a0",
+        "type": "comment",
+        "z": "3be44ceda570ace4",
+        "name": "Buttons: coffe, milk and recipes",
+        "info": "",
+        "x": 170,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "541c0f35346e8e0d",
+        "type": "ui_button",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "group": "b9f388ad129933d3",
+        "order": 8,
+        "width": 1,
+        "height": 1,
+        "passthru": false,
+        "label": " x2",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "{{background}}",
+        "className": "",
+        "icon": "fa-coffee",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 250,
+        "y": 680,
+        "wires": [
+            [
+                "f05072a4849dd895"
+            ]
+        ]
+    },
+    {
+        "id": "f05072a4849dd895",
+        "type": "trigger",
+        "z": "3be44ceda570ace4",
+        "name": "coffee quantity",
+        "op1": "1",
+        "op2": "-1",
+        "op1type": "num",
+        "op2type": "num",
+        "duration": "3",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 460,
+        "y": 680,
+        "wires": [
+            [
+                "d2cca69740b09b85",
+                "2ab357b18f125b27",
+                "1e4d6a76d76d5073"
+            ]
+        ]
+    },
+    {
+        "id": "9e8e882cdb4ad23a",
+        "type": "ui_led",
+        "z": "3be44ceda570ace4",
+        "order": 3,
+        "group": "b9f388ad129933d3",
+        "width": 1,
+        "height": 1,
+        "label": "",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "LED",
+        "x": 710,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "e2673beb1ae7cf79",
+        "type": "comment",
+        "z": "3be44ceda570ace4",
+        "name": "Connection status",
+        "info": "Information about connection status is received\nfrom the right button. But it could have been choosen\nany of the buttons, becuase they continusly give\ninformation about their status.",
+        "x": 870,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "7a96e061c2f21c69",
+        "type": "trigger",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "op1": "true",
+        "op2": "false",
+        "op1type": "bool",
+        "op2type": "bool",
+        "duration": "5",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 520,
+        "y": 1420,
+        "wires": [
+            [
+                "9e8e882cdb4ad23a",
+                "6d681b583e48efac"
+            ]
+        ]
+    },
+    {
+        "id": "f36880eae99bf691",
+        "type": "function",
+        "z": "3be44ceda570ace4",
+        "name": "button colour",
+        "func": "if (msg.payload === 1)\n{\n    msg.background = \"green\";\n}\nelse\n{\n    msg.background = \"\";\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 110,
+        "y": 520,
+        "wires": [
+            [
+                "d6190d877751f677"
+            ]
+        ]
+    },
+    {
+        "id": "d2cca69740b09b85",
+        "type": "function",
+        "z": "3be44ceda570ace4",
+        "name": "button colour",
+        "func": "if (msg.payload === 1)\n{\n    msg.background = \"green\";\n}\nelse\n{\n    msg.background = \"\";\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 110,
+        "y": 680,
+        "wires": [
+            [
+                "541c0f35346e8e0d"
+            ]
+        ]
+    },
+    {
+        "id": "05d378c67a485597",
+        "type": "ui_text",
+        "z": "3be44ceda570ace4",
+        "group": "b9f388ad129933d3",
+        "order": 6,
+        "width": 3,
+        "height": 1,
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "className": ".nr-dashboard-widget-text p.label{     /*visibility: hidden !important;*/     display:none !important; }",
+        "x": 630,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "eb72c08e850ee41c",
+        "type": "trigger",
+        "z": "3be44ceda570ace4",
+        "name": "Enjoy",
+        "op1": "Enjoy!",
+        "op2": "  Ready",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "3",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 1390,
+        "y": 660,
+        "wires": [
+            [
+                "73e82a625073481c",
+                "c1c13c31e70df9af"
+            ]
+        ]
+    },
+    {
+        "id": "1e4d6a76d76d5073",
+        "type": "switch",
+        "z": "3be44ceda570ace4",
+        "name": "if msg = -1",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "-1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1230,
+        "y": 660,
+        "wires": [
+            [
+                "eb72c08e850ee41c"
+            ]
+        ]
+    },
+    {
+        "id": "5979560025f92cdc",
+        "type": "ui_text",
+        "z": "3be44ceda570ace4",
+        "group": "b9f388ad129933d3",
+        "order": 11,
+        "width": 5,
+        "height": 1,
+        "name": "coffee level",
+        "label": "Quantity left on tank",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 710,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "812d77d973f8e1cc",
+        "type": "function",
+        "z": "3be44ceda570ace4",
+        "name": "Level indicator",
+        "func": "if (msg.payload <10){\nmsg.payload = \"⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛\"}\nif (msg.payload >= 3 && msg.payload <20){\nmsg.payload = \"⬜⬛⬛⬛⬛⬛⬛⬛⬛⬛\"}\n\nif (msg.payload >= 10 && msg.payload  <20){\nmsg.payload = \"⬜⬜⬛⬛⬛⬛⬛⬛⬛⬛\"}\n\nif (msg.payload >= 20 && msg.payload <30){\nmsg.payload = \"⬜⬜⬜⬛⬛⬛⬛⬛⬛⬛\"}\n\nif (msg.payload >= 30 && msg.payload <40){\nmsg.payload = \"⬜⬜⬜⬜⬛⬛⬛⬛⬛⬛\"}\n\nif (msg.payload >= 40 && msg.payload <50){\nmsg.payload = \"⬜⬜⬜⬜⬜⬛⬛⬛⬛⬛\"}\n\nif (msg.payload >= 50 && msg.payload <60){\nmsg.payload = \"⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛\"}\n\nif (msg.payload >= 60 && msg.payload <70){\nmsg.payload = \"⬜⬜⬜⬜⬜⬜⬜⬛⬛⬛\"}\n\nif (msg.payload >= 70 && msg.payload <80){\nmsg.payload = \"⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛\"}\n\nif (msg.payload >= 80 && msg.payload <90){\nmsg.payload = \"⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛\"}\nif (msg.payload >= 90 && msg.payload <=100){\nmsg.payload = \"⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜\"}\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 1520,
+        "wires": [
+            [
+                "5979560025f92cdc"
+            ]
+        ]
+    },
+    {
+        "id": "fbbfcf6b925cfec5",
+        "type": "ui_text",
+        "z": "3be44ceda570ace4",
+        "group": "b9f388ad129933d3",
+        "order": 13,
+        "width": 5,
+        "height": 1,
+        "name": "milk level",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 700,
+        "y": 1580,
+        "wires": []
+    },
+    {
+        "id": "3b66cc715a2944c3",
+        "type": "function",
+        "z": "3be44ceda570ace4",
+        "name": "Level indicator",
+        "func": "if (msg.payload <10){\nmsg.payload = \"⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛\"}\n\nif (msg.payload >= 3 && msg.payload <20){\nmsg.payload = \"⬜⬛⬛⬛⬛⬛⬛⬛⬛⬛\"}\n\nif (msg.payload >= 10 && msg.payload  <20){\nmsg.payload = \"⬜⬜⬛⬛⬛⬛⬛⬛⬛⬛\"}\n\nif (msg.payload >= 20 && msg.payload <30){\nmsg.payload = \"⬜⬜⬜⬛⬛⬛⬛⬛⬛⬛\"}\n\nif (msg.payload >= 30 && msg.payload <40){\nmsg.payload = \"⬜⬜⬜⬜⬛⬛⬛⬛⬛⬛\"}\n\nif (msg.payload >= 40 && msg.payload <50){\nmsg.payload = \"⬜⬜⬜⬜⬜⬛⬛⬛⬛⬛\"}\n\nif (msg.payload >= 50 && msg.payload <60){\nmsg.payload = \"⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛\"}\n\nif (msg.payload >= 60 && msg.payload <70){\nmsg.payload = \"⬜⬜⬜⬜⬜⬜⬜⬛⬛⬛\"}\n\nif (msg.payload >= 70 && msg.payload <80){\nmsg.payload = \"⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛\"}\n\nif (msg.payload >= 80 && msg.payload <90){\nmsg.payload = \"⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛\"}\n\nif (msg.payload >= 90 && msg.payload <=100){\nmsg.payload = \"⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜\"}\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 1580,
+        "wires": [
+            [
+                "fbbfcf6b925cfec5"
+            ]
+        ]
+    },
+    {
+        "id": "7e52874f150eaf77",
+        "type": "function",
+        "z": "3be44ceda570ace4",
+        "name": "Menu",
+        "func": "//Getting the \"menu\" value everytime this function is executed.\n//If there is no value it will 0.\nvar menu = global.get('menu')|| 0;\n\n//Increasing or deacreaing the menu value\nmenu = menu + msg.payload;\n\n//limiting to 4 menus\nif (menu > 4){\n    menu = 0;\n}\n\nif (menu < 0){\n    menu = 4;\n}\n\n//updating the menu value\nglobal.set('menu',menu);\n\n//Creating menu text for each menu value\n\nif (menu == 0){\n    msg.payload = \"<-Add coffee->\";\n}\n\nif (menu == 1){\n    msg.payload = \"<-Add milk->\";\n}\n\n\nif (menu == 2){\n    msg.payload = \"<-Espresso->\";\n}\n\nif (menu == 3){\n    msg.payload = \"<-Double espresso->\";\n}\n\nif (menu == 4){\n    msg.payload = \"<-Macchiato->\";\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 1340,
+        "wires": [
+            [
+                "ddcd1f9cf35724dd"
+            ]
+        ]
+    },
+    {
+        "id": "9fd17031e219142c",
+        "type": "switch",
+        "z": "3be44ceda570ace4",
+        "name": "if ON",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "OFF",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "ON",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 530,
+        "y": 1280,
+        "wires": [
+            [],
+            [
+                "edc432aea7c33bc7"
+            ]
+        ]
+    },
+    {
+        "id": "e96006c0ce755501",
+        "type": "switch",
+        "z": "3be44ceda570ace4",
+        "name": "if ON",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "OFF",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "ON",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 510,
+        "y": 1380,
+        "wires": [
+            [],
+            [
+                "a4b27c77d5862f88"
+            ]
+        ]
+    },
+    {
+        "id": "edc432aea7c33bc7",
+        "type": "change",
+        "z": "3be44ceda570ace4",
+        "name": "-1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "-1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 1280,
+        "wires": [
+            [
+                "7e52874f150eaf77"
+            ]
+        ]
+    },
+    {
+        "id": "a4b27c77d5862f88",
+        "type": "change",
+        "z": "3be44ceda570ace4",
+        "name": "+1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 1380,
+        "wires": [
+            [
+                "7e52874f150eaf77"
+            ]
+        ]
+    },
+    {
+        "id": "473cee3b41c40f93",
+        "type": "ui_button",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "group": "b9f388ad129933d3",
+        "order": 9,
+        "width": 2,
+        "height": 1,
+        "passthru": false,
+        "label": "Macchiato",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "{{background}}",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "topic",
+        "topicType": "str",
+        "x": 270,
+        "y": 280,
+        "wires": [
+            [
+                "312ca2fe7728c9a4"
+            ]
+        ]
+    },
+    {
+        "id": "312ca2fe7728c9a4",
+        "type": "trigger",
+        "z": "3be44ceda570ace4",
+        "name": "coffee quantity",
+        "op1": "1",
+        "op2": "-1",
+        "op1type": "num",
+        "op2type": "num",
+        "duration": "3",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 540,
+        "y": 280,
+        "wires": [
+            [
+                "2ab357b18f125b27",
+                "9573e51c0174e40e",
+                "9da05c226fa4b1d7"
+            ]
+        ]
+    },
+    {
+        "id": "970c8cb0da611f97",
+        "type": "trigger",
+        "z": "3be44ceda570ace4",
+        "name": "milk quantity",
+        "op1": "1",
+        "op2": "-1",
+        "op1type": "num",
+        "op2type": "num",
+        "duration": "2",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 870,
+        "y": 280,
+        "wires": [
+            [
+                "776ce2b9fd2d9ecd",
+                "9da05c226fa4b1d7",
+                "71d2cc8ec294a2f2"
+            ]
+        ]
+    },
+    {
+        "id": "9573e51c0174e40e",
+        "type": "switch",
+        "z": "3be44ceda570ace4",
+        "name": "-1 to 1",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "-1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 730,
+        "y": 280,
+        "wires": [
+            [
+                "970c8cb0da611f97"
+            ]
+        ]
+    },
+    {
+        "id": "9da05c226fa4b1d7",
+        "type": "function",
+        "z": "3be44ceda570ace4",
+        "name": "button colour",
+        "func": "if (msg.payload === -1) {\nmsg.background = \"\";\n}\n\nelse \n{\n    msg.background = \"green\";\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1110,
+        "y": 200,
+        "wires": [
+            [
+                "303a3c451a3676f7"
+            ]
+        ]
+    },
+    {
+        "id": "4449a1a9dea3a6ca",
+        "type": "function",
+        "z": "3be44ceda570ace4",
+        "name": "get menu",
+        "func": "var menu = global.get('menu');\nmsg.payload = menu;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 1120,
+        "wires": [
+            [
+                "c1fe9da23c01c0a1"
+            ]
+        ]
+    },
+    {
+        "id": "c1fe9da23c01c0a1",
+        "type": "switch",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "4",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 930,
+        "y": 1120,
+        "wires": [
+            [
+                "e6521d58d8119185"
+            ],
+            [
+                "ef79ebd07ae4d1a3"
+            ],
+            [
+                "da9112efb3280e5f"
+            ],
+            [
+                "cdbfb40ebd5cff99"
+            ],
+            [
+                "9dd3e579f4c8c8ed"
+            ]
+        ]
+    },
+    {
+        "id": "e6521d58d8119185",
+        "type": "link out",
+        "z": "3be44ceda570ace4",
+        "name": "add coffee",
+        "mode": "link",
+        "links": [
+            "8f172b1e6cf94fa2"
+        ],
+        "x": 1075,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "ef79ebd07ae4d1a3",
+        "type": "link out",
+        "z": "3be44ceda570ace4",
+        "name": "add milk",
+        "mode": "link",
+        "links": [
+            "71df8714cc789890"
+        ],
+        "x": 1075,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "da9112efb3280e5f",
+        "type": "link out",
+        "z": "3be44ceda570ace4",
+        "name": "espressp",
+        "mode": "link",
+        "links": [
+            "cd04de132c2b29c9"
+        ],
+        "x": 1075,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "cdbfb40ebd5cff99",
+        "type": "link out",
+        "z": "3be44ceda570ace4",
+        "name": "x2 ",
+        "mode": "link",
+        "links": [
+            "1ff778b23bb2a1ef"
+        ],
+        "x": 1075,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "9dd3e579f4c8c8ed",
+        "type": "link out",
+        "z": "3be44ceda570ace4",
+        "name": "macchiatto",
+        "mode": "link",
+        "links": [
+            "72884fbe53c01c85"
+        ],
+        "x": 1075,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "72884fbe53c01c85",
+        "type": "link in",
+        "z": "3be44ceda570ace4",
+        "name": "machine menu",
+        "links": [
+            "9dd3e579f4c8c8ed"
+        ],
+        "x": 435,
+        "y": 240,
+        "wires": [
+            [
+                "312ca2fe7728c9a4"
+            ]
+        ]
+    },
+    {
+        "id": "71df8714cc789890",
+        "type": "link in",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "links": [
+            "ef79ebd07ae4d1a3"
+        ],
+        "x": 155,
+        "y": 100,
+        "wires": [
+            [
+                "812d3e4b790eb995"
+            ]
+        ]
+    },
+    {
+        "id": "812d3e4b790eb995",
+        "type": "function",
+        "z": "3be44ceda570ace4",
+        "name": "-1",
+        "func": "msg.payload = -1;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 100,
+        "wires": [
+            [
+                "f43a1d20e89a2028"
+            ]
+        ]
+    },
+    {
+        "id": "8f172b1e6cf94fa2",
+        "type": "link in",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "links": [
+            "e6521d58d8119185"
+        ],
+        "x": 155,
+        "y": 360,
+        "wires": [
+            [
+                "19225d6663fa634a"
+            ]
+        ]
+    },
+    {
+        "id": "19225d6663fa634a",
+        "type": "function",
+        "z": "3be44ceda570ace4",
+        "name": "-1",
+        "func": "msg.payload = -1;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 360,
+        "wires": [
+            [
+                "5f0a3f3cb592b308"
+            ]
+        ]
+    },
+    {
+        "id": "cd04de132c2b29c9",
+        "type": "link in",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "links": [
+            "da9112efb3280e5f"
+        ],
+        "x": 335,
+        "y": 580,
+        "wires": [
+            [
+                "f027da30cea579b4"
+            ]
+        ]
+    },
+    {
+        "id": "1ff778b23bb2a1ef",
+        "type": "link in",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "links": [
+            "cdbfb40ebd5cff99"
+        ],
+        "x": 335,
+        "y": 740,
+        "wires": [
+            [
+                "f05072a4849dd895"
+            ]
+        ]
+    },
+    {
+        "id": "71d2cc8ec294a2f2",
+        "type": "link out",
+        "z": "3be44ceda570ace4",
+        "name": "finish cafe/milk",
+        "mode": "link",
+        "links": [
+            "feace5c652341705"
+        ],
+        "x": 1015,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "feace5c652341705",
+        "type": "link in",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "links": [
+            "181dd11966206079",
+            "71d2cc8ec294a2f2",
+            "9d901a17a6d006c3"
+        ],
+        "x": 1015,
+        "y": 660,
+        "wires": [
+            [
+                "1e4d6a76d76d5073"
+            ]
+        ]
+    },
+    {
+        "id": "9d901a17a6d006c3",
+        "type": "link out",
+        "z": "3be44ceda570ace4",
+        "name": "finish cafe/milk",
+        "mode": "link",
+        "links": [
+            "feace5c652341705"
+        ],
+        "x": 675,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "181dd11966206079",
+        "type": "link out",
+        "z": "3be44ceda570ace4",
+        "name": "finish cafe/milk",
+        "mode": "link",
+        "links": [
+            "feace5c652341705"
+        ],
+        "x": 655,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "303a3c451a3676f7",
+        "type": "link out",
+        "z": "3be44ceda570ace4",
+        "name": "macchiato button",
+        "mode": "link",
+        "links": [
+            "9546a8b58f1df468"
+        ],
+        "x": 1215,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "9546a8b58f1df468",
+        "type": "link in",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "links": [
+            "303a3c451a3676f7"
+        ],
+        "x": 155,
+        "y": 280,
+        "wires": [
+            [
+                "473cee3b41c40f93"
+            ]
+        ]
+    },
+    {
+        "id": "c72b7860597191b9",
+        "type": "link out",
+        "z": "3be44ceda570ace4",
+        "name": "UI text",
+        "mode": "link",
+        "links": [
+            "edc819a658cb9031"
+        ],
+        "x": 1515,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "73e82a625073481c",
+        "type": "link out",
+        "z": "3be44ceda570ace4",
+        "name": "UI text",
+        "mode": "link",
+        "links": [
+            "edc819a658cb9031"
+        ],
+        "x": 1535,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "edc819a658cb9031",
+        "type": "link in",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "links": [
+            "608f7afd549ffbd0",
+            "73e82a625073481c",
+            "c72b7860597191b9"
+        ],
+        "x": 315,
+        "y": 940,
+        "wires": [
+            [
+                "05d378c67a485597",
+                "6d8e43a3ea5981e7"
+            ]
+        ]
+    },
+    {
+        "id": "c1c13c31e70df9af",
+        "type": "link out",
+        "z": "3be44ceda570ace4",
+        "name": "machine display",
+        "mode": "link",
+        "links": [
+            "0fd91098cf66af69"
+        ],
+        "x": 1635,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "b01765858b933609",
+        "type": "link out",
+        "z": "3be44ceda570ace4",
+        "name": "machine display",
+        "mode": "link",
+        "links": [
+            "0fd91098cf66af69"
+        ],
+        "x": 1515,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "ddcd1f9cf35724dd",
+        "type": "link out",
+        "z": "3be44ceda570ace4",
+        "name": "machine display",
+        "mode": "link",
+        "links": [
+            "0fd91098cf66af69"
+        ],
+        "x": 1055,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "0fd91098cf66af69",
+        "type": "link in",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "links": [
+            "b01765858b933609",
+            "c1c13c31e70df9af",
+            "ddcd1f9cf35724dd"
+        ],
+        "x": 315,
+        "y": 980,
+        "wires": [
+            [
+                "cb5b5e1314c79103"
+            ]
+        ]
+    },
+    {
+        "id": "6aba2f39b682fd09",
+        "type": "comment",
+        "z": "3be44ceda570ace4",
+        "name": "Display text to nodered interface",
+        "info": "",
+        "x": 210,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "608f7afd549ffbd0",
+        "type": "link out",
+        "z": "3be44ceda570ace4",
+        "name": "Offline ",
+        "mode": "link",
+        "links": [
+            "edc819a658cb9031"
+        ],
+        "x": 835,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "6d681b583e48efac",
+        "type": "function",
+        "z": "3be44ceda570ace4",
+        "name": "Offline text",
+        "func": "if (msg.payload == false) {\n    msg.payload = \"Offline\";\n    return msg;\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 1460,
+        "wires": [
+            [
+                "608f7afd549ffbd0"
+            ]
+        ]
+    },
+    {
+        "id": "01383fc99f1e4d34",
+        "type": "inject",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 530,
+        "y": 1460,
+        "wires": [
+            [
+                "6d681b583e48efac",
+                "9e8e882cdb4ad23a"
+            ]
+        ]
+    },
+    {
+        "id": "2fdc22e234e2173e",
+        "type": "inject",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 370,
+        "y": 1540,
+        "wires": [
+            [
+                "3b66cc715a2944c3",
+                "812d77d973f8e1cc"
+            ]
+        ]
+    },
+    {
+        "id": "0ecc3c351ed886f6",
+        "type": "ui_template",
+        "z": "3be44ceda570ace4",
+        "group": "b9f388ad129933d3",
+        "name": "",
+        "order": 15,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\nmd-card.nr-dashboard-text.on {\n    border-width: 5px;\n    border-color: grey;\n    border-style: solid;\n}\n</style",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 640,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6d8e43a3ea5981e7",
+        "type": "change",
+        "z": "3be44ceda570ace4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "className",
+                "pt": "msg",
+                "to": "on",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 470,
+        "y": 920,
+        "wires": [
+            [
+                "05d378c67a485597"
+            ]
+        ]
+    },
+    {
+        "id": "55dc35fde929421e",
+        "type": "ui_media",
+        "z": "3be44ceda570ace4",
+        "group": "b9f388ad129933d3",
+        "name": "simumatik logo",
+        "width": 5,
+        "height": 1,
+        "order": 1,
+        "category": "coffee machine",
+        "file": "Simumatik_Logo_Full_Filled_Green-2-01-1-1.png",
+        "layout": "adjust",
+        "showcontrols": true,
+        "loop": true,
+        "onstart": true,
+        "scope": "local",
+        "tooltip": "",
+        "x": 200,
+        "y": 1680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3db3ce7f1df338f8",
+        "type": "comment",
+        "z": "3be44ceda570ace4",
+        "name": "Text to node-red interface",
+        "info": "",
+        "x": 1650,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "fb5c311a3ae12aae",
+        "type": "comment",
+        "z": "3be44ceda570ace4",
+        "name": "Text to machine display",
+        "info": "",
+        "x": 1640,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "af1e694270f8a35b",
+        "type": "comment",
+        "z": "3be44ceda570ace4",
+        "name": "Text to node-red interface",
+        "info": "",
+        "x": 1370,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "480083e0072a0dd3",
+        "type": "comment",
+        "z": "3be44ceda570ace4",
+        "name": "Text to machine display",
+        "info": "",
+        "x": 1780,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "c8040323dc25aa2e",
+        "type": "comment",
+        "z": "3be44ceda570ace4",
+        "name": "CSS className",
+        "info": "",
+        "x": 660,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "e513db2f7e03a377",
+        "type": "comment",
+        "z": "3be44ceda570ace4",
+        "name": "Reset to 0",
+        "info": "Reset to 0 when node-red is started",
+        "x": 220,
+        "y": 1540,
+        "wires": []
+    },
+    {
+        "id": "5f0a3f3cb592b308",
+        "type": "function",
+        "z": "3be44ceda570ace4",
+        "name": "toggle function & button colour",
+        "func": "//getting the local variable which has only\n// two values, -1 and 1. \nvar toggle = context.get('toggle')||-1;  \n\n//msg.payload has always the input value = -1. Thus the multiplication will output only two possible values. -1 or 1.\nmsg.payload = msg.payload * toggle;     \ncontext.set('toggle',msg.payload);      //updating the value to the toggle variable\n\n\n//creating the toggle function. The output will have have tow possible values. \"green\" or \"\".\nif (msg.payload === 1)                  \n{\n    msg.background = \"green\";\n}\nelse\n{\n    msg.background = \"\";\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 400,
+        "wires": [
+            [
+                "9d901a17a6d006c3",
+                "80a17ed1c6a4415b",
+                "2ab357b18f125b27"
+            ]
+        ]
+    },
+    {
+        "id": "16ba86ea02766f43",
+        "type": "comment",
+        "z": "3be44ceda570ace4",
+        "name": "Menu",
+        "info": "command from the machine menu",
+        "x": 90,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "be001bb77cae868d",
+        "type": "comment",
+        "z": "3be44ceda570ace4",
+        "name": "Menu",
+        "info": "command from the machine menu",
+        "x": 350,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "e2ca265d0bc899d9",
+        "type": "comment",
+        "z": "3be44ceda570ace4",
+        "name": "Menu",
+        "info": "command from the machine menu",
+        "x": 90,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "0c8daabad0e76488",
+        "type": "comment",
+        "z": "3be44ceda570ace4",
+        "name": "Menu",
+        "info": "command from the machine menu",
+        "x": 250,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "9184da3e2a980ed6",
+        "type": "comment",
+        "z": "3be44ceda570ace4",
+        "name": "Menu",
+        "info": "command from the machine menu",
+        "x": 270,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "d38bc243a22b0725",
+        "type": "ui_spacer",
+        "z": "3be44ceda570ace4",
+        "name": "spacer",
+        "group": "b9f388ad129933d3",
+        "order": 2,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "f08a175a79069ab2",
+        "type": "ui_spacer",
+        "z": "3be44ceda570ace4",
+        "name": "spacer",
+        "group": "b9f388ad129933d3",
+        "order": 10,
+        "width": 3,
+        "height": 1
+    },
+    {
+        "id": "4b0c4988f0f383c0",
+        "type": "mqtt-broker",
+        "name": "test.mosquitto.org",
+        "broker": "test.mosquitto.org",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "b9f388ad129933d3",
+        "type": "ui_group",
+        "name": "Coffee machine ",
+        "tab": "22b39052f0f56b9f",
+        "order": 1,
+        "disp": false,
+        "width": "7",
+        "collapse": false,
+        "className": " background-color: purple !important;"
+    },
+    {
+        "id": "22b39052f0f56b9f",
+        "type": "ui_tab",
+        "name": "IoT Coffee Machine",
+        "icon": "dashboard",
+        "order": 6,
+        "disabled": false,
+        "hidden": false
+    }
+]
