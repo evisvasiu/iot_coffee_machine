@@ -6,7 +6,7 @@ This is a Node-RED project intended to remotely control via MQTT a coffee machin
 
 ## Prerequisities
 
-Nodes used in this project and required to be installed are: 
+Nodes required to be installed are: 
 - node-red-dashboard
 - node-red-contrib-ui-led-fork
 - node-red-contrib-ui-media
