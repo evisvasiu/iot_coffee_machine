@@ -26,7 +26,7 @@ This Node-RED project can be loaded locally or in any cloud instance. In my [exa
 
 By using the provided inbuilt MQTT topics, I have built an interface with a total of nine inputs and five commands. 
 
-![Fig. 1. Cloud interface of the machine](/ui-media/interface.jpg) ![Fig. 1. Cloud interface of the machine](/ui-media/machine1.jpg)
+![Fig. 1. Cloud interface of the machine](/ui-media/interface2.jpg) ![Fig. 1. Cloud interface of the machine](/ui-media/machine1.jpg)
 
 List of the commands are as follows: 
 -	Two buttons for pouring “Coffee” and “Milk”. Pouring coffee or milk happens if any of the buttons is pressed once and it stops pouring when the relevant button is pressed again. 
