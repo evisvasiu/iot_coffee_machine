@@ -37,7 +37,13 @@ List of the feedbacks are as follows:
 
 -	LED lamp. It turns green when MQTT messages are received from the "button_right" and it turns red when no messages are coming in a period of 5 seconds. 
 -	Each button background color. Each button background turns red when the command is received successfully by the machine. 
--	Text display. There are several text feedback which provide main informations about the machine status. Text messages feedbacks are: “Ready”, “Pouring coffee”, “Pouring milk” and “Enjoy”.
+-	Text display. There are several text feedback which provide main informations about the machine status. Text messages feedbacks are: “Ready”, “Coffee”, “Double Coffee”, “Macchiato”, “Pouring coffee”, “Pouring milk” and “Enjoy”.
 -	Milk and coffee quantities left on the tank. 
 
 
+### Machine display
+
+
+By using the machine's physical buttons, I have programmed the machine to be controlled by using these buttons and showing the current function on its inbuilt display. 
+
+By pressing the left button (-) or right button (+), is possible to pass through each function (or menu). By pressing the "OK" button, the showing menu is selected and executed. The same messages will display at the same time as in the web interface. 
