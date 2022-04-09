@@ -41,7 +41,7 @@ List of the feedbacks are as follows:
 -	Milk and coffee quantities left on the tank. 
 
 
-### Machine display
+### Machine's buttons and display
 
 
 By using the machine's physical buttons, I have programmed the machine to be controlled by using these buttons and showing the current function on its inbuilt display. 
